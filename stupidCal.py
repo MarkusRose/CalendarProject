@@ -95,7 +95,7 @@ workHoursOnly=int(workHours*100/100.)
 
 #end of work
 endWork_hour=workHoursOnly+startWork
-endWork_minute=round((workHours-workHoursOnly)*60,2)
+endWork_minute=int(round((workHours-workHoursOnly)*60,0))
 #print(endWork_hour+endWork_minute)
 
 #get the maximal working hours and check if they don't conflict with the calculated hours, pretty useless still...
@@ -116,6 +116,7 @@ elif check=='y':
 # startHour=Start[0:2]
 # print(startHour)
 EndWork=str(endWork_hour)+str(endWork_minute)
+#print(EndWork)
 
 #I will need the date in the format yyyymmdd
 
@@ -139,9 +140,9 @@ for n in range(actualDelta):
 	outfile.write('CALSCALE:GREGORIAN \n')
 	outfile.write('BEGIN:VEVENT \n')
 	outfile.write('SUMMARY:'+str(task)+'/day'+str(n) + '\n')
-	outfile.write('DTSTART;TZID=America/New_York:'+CalendarDate_n+'T'+str(startWork)+'00 \n')
+	outfile.write('DTSTART;TZID=America/New_York:'+CalendarDate_n+'T'+str(startWork)+'0000 \n')
 	outfile.write('DTEND;TZID=America/New_York:'+CalendarDate_n+'T'+str(EndWork)+'00 \n')
-	outfile.write('LOCATION: \n')
+	outfile.write('LOCATION: wherever I am\n')
 	outfile.write('DESCRIPTION: automatically generated calendar task for '+str(task)+'.\n')
 	outfile.write('STATUS: CONFIRMED \n')
 	outfile.write('BEGIN:VALARM \n')
@@ -151,5 +152,4 @@ for n in range(actualDelta):
 	outfile.write('END:VALARM \n')
 	outfile.write('END:VEVENT \n')
 	outfile.write('END:VCALENDAR \n')
-	outfile.write('BEGIN:VCALENDAR \n')
 	outfile.close
